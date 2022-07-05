@@ -7,6 +7,20 @@
     escape_attempts INT,
     neutered BIT,
     weight_kg DECIMAL,
-    species CHAR(40),
+    species_id INT references species(id),
+    owner_id INT references owners(id),
     PRIMARY KEY(id)
 );
+
+CREATE TABLE owners(
+    id INT GENERATED ALWAYS AS IDENTITY,
+    full_name CHAR(40),
+    age INT,
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE  species (
+    id INT GENERATED ALWAYS AS IDENTITY,
+    name CHAR(40),
+    PRIMARY KEY (id)
+)
