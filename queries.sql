@@ -8,6 +8,34 @@ SELECT * FROM animals WHERE neutered = B'1';
 SELECT * FROM animals WHERE name != 'Gabumon';
 SELECT * FROM animals WHERE weight_kg BETWEEN 10.4 AND 17.3;
 
+-- Transactions 
+-- 1
+vet_clinic=# BEGIN;
+
+vet_clinic=*# DELETE FROM animals;
+
+vet_clinic=*# ROLLBACK;
+
+vet_clinic=# SELECT * FROM animals;
+-- 2
+BEGIN;
+
+DELETE FROM animals
+WHERE date_of_birth > '2022-01-01';
+
+SAVEPOINT SP1;
+
+UPDATE animals
+SET weight_kg = weight_kg * -1;
+
+ROLLBACK TO SP1;
+
+UPDATE animals
+SET weight_kg = weight_kg * -1
+WHERE weight_kg < 0;
+
+COMMIT;
+
 -- Answer questions
 SELECT COUNT(*) FROM animals;
 
