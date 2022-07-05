@@ -6,5 +6,7 @@
     date_of_birth DATE,
     escape_attempts INT,
     neutered BIT,
-    weight_kg DECIMAL
+    weight_kg DECIMAL,
+    species CHAR(40),
+    PRIMARY KEY(id)
 );
