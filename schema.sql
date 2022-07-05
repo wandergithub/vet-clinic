@@ -23,4 +23,4 @@ CREATE TABLE  species (
     id INT GENERATED ALWAYS AS IDENTITY,
     name CHAR(40),
     PRIMARY KEY (id)
-)
+);
