@@ -24,3 +24,11 @@ CREATE TABLE  species (
     name CHAR(40),
     PRIMARY KEY (id)
 );
+
+CREATE TABLE vets (
+    id INT GENERATED ALWAYS AS IDENTITY,
+    name CHAR(40),
+    age INT,
+    date_of_graduation DATE,
+    PRIMARY KEY (id)
+);
