@@ -95,3 +95,75 @@ SELECT owners.full_name, COUNT(animals.name)
 FROM owners
 JOIN animals ON animals.owner_id = owners.id
 GROUP BY full_name;
+
+-- Answer questions many to many project
+SELECT visits.vet_id, MAX(visits.date_of_visit)
+FROM visits 
+JOIN animals ON visits.animal_id = animals.id
+JOIN vets ON vets.id = visits.vet_id
+WHERE vets.name = 'William Tatcher'
+GROUP BY visits.vet_id;
+
+SELECT vets.id, COUNT(animal_id)
+FROM visits
+JOIN vets ON visits.vet_id = vets.id
+WHERE vets.name = 'Stephanie Mendez'
+GROUP BY vets.id;
+
+SELECT vets.name, species.name
+FROM vets
+LEFT JOIN specializations ON specializations.vet_id = vets.id
+LEFT JOIN species ON species.id = specializations.species_id;
+
+SELECT animals.name
+FROM animals
+JOIN visits ON visits.animal_id = animals.id
+JOIN vets ON vets.id = visits.vet_id
+WHERE vets.name = 'Stephanie Mendez' AND visits.date_of_visit BETWEEN '2020-04-01' AND '2020-08-30';
+
+SELECT MAX(mycount)
+FROM (SELECT animals.name, COUNT(visits.animal_id) mycount
+FROM animals
+JOIN visits ON visits.animal_id = animals.id
+GROUP BY animals.name) AS foo;
+
+SELECT animals.name, MIN(visits.date_of_visit) 
+FROM animals
+JOIN visits ON visits.animal_id = animals.id
+JOIN vets ON vets.id = visits.vet_id
+WHERE vets.name = 'Maisy Smith' 
+GROUP BY animals.name
+LIMIT 1;
+
+SELECT animals.name, vets.name, lastVisitToMaisy
+FROM
+(SELECT MAX(visits.date_of_visit) myDate
+FROM animals
+JOIN visits ON visits.animal_id = animals.id
+JOIN vets ON vets.id = visits.vet_id
+WHERE vets.name = 'Maisy Smith'
+) AS lastVisitToMaisy
+JOIN visits ON visits.date_of_visit = lastVisitToMaisy.myDate
+JOIN animals ON visits.animal_id = animals.id
+JOIN vets ON vets.id = visits.vet_id;
+
+SELECT COUNT(*)
+FROM visits
+JOIN vets ON vets.id = visits.vet_id
+JOIN animals ON animals.id = visits.animal_id
+WHERE animals.species_id NOT IN (
+  SELECT specializations.species_id 
+  FROM vets
+  LEFT JOIN specializations ON specializations.vet_id = vets.id
+  WHERE vets.id = visits.vet_id
+  AND specializations.species_id IS NOT NULL
+);
+
+SELECT species.name, COUNT(animals.species_id)
+FROM visits
+JOIN vets ON vets.id = visits.vet_id
+JOIN animals ON animals.id = animal_id
+JOIN species ON species.id = animals.species_id
+GROUP BY species.name
+ORDER BY COUNT DESC
+LIMIT 1;
