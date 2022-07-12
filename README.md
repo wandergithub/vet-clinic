@@ -3,7 +3,8 @@
 > This template should be used for database related projects at Microverse.
 > Generate your own repository, update this README and edit all files content while working on projects. You should not be adding any new files unless asked otherwise.
 # Schema diagram
-<iframe width="100%" height="500px" style="box-shadow: 0 2px 8px 0 rgba(63,69,81,0.16); border-radius:15px;" allowtransparency="true" allowfullscreen="true" scrolling="no" title="Embedded DrawSQL IFrame" frameborder="0" src="https://drawsql.app/microverse-76/diagrams/vet-clinic/embed"></iframe>
+![diagram](./schema-diagram.png  "diagram")
+
 
 ## Getting Started
 
