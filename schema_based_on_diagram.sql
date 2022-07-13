@@ -50,3 +50,7 @@ CREATE TABLE medical_histories_treatments(
   treatment_id INT REFERENCES treatments(id),
   PRIMARY KEY (medical_history_id, treatment_id)
 );
+
+CREATE INDEX medical_histories_treatments_mh_asc ON medical_histories_treatments(medical_history_id ASC);
+CREATE INDEX medical_histories_treatments_ti_asc ON medical_histories_treatments(treatment_id ASC);
+
